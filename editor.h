@@ -5,7 +5,6 @@
 #include <QPainter>
 #include <QTextBlock>
 #include <QtDebug>
-#include "highlighter.h"
 #include "pythonhighlighter.h"
 
 class LineNumberArea;

@@ -19,14 +19,12 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     editor.cpp \
-    highlighter.cpp \
     directoryviewer.cpp \
     pythonhighlighter.cpp
 
 HEADERS += \
     mainwindow.h \
     editor.h \
-    highlighter.h \
     directoryviewer.h \
     pythonhighlighter.h
 

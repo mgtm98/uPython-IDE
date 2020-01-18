@@ -3,16 +3,16 @@
         <file>style.css</file>
     </qresource>
     <qresource prefix="/icons">
-        <file>branch-closed.png</file>
-        <file>branch-end.png</file>
-        <file>branch-more.png</file>
-        <file>branch-open.png</file>
-        <file>vline.png</file>
-        <file>close.png</file>
-        <file>close_red.png</file>
-        <file>connect.png</file>
-        <file>download.png</file>
-        <file>new.png</file>
-        <file>open.png</file>
+        <file>icons/vline.png</file>
+        <file>icons/open.png</file>
+        <file>icons/new.png</file>
+        <file>icons/download.png</file>
+        <file>icons/connect.png</file>
+        <file>icons/close_red.png</file>
+        <file>icons/close.png</file>
+        <file>icons/branch-open.png</file>
+        <file>icons/branch-more.png</file>
+        <file>icons/branch-end.png</file>
+        <file>icons/branch-closed.png</file>
     </qresource>
 </RCC>

@@ -26,10 +26,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
 
     toolBar = new QToolBar();
     toolBar->setOrientation(Qt::Vertical);
-        QPixmap openpix(":/icons/open.png");
-        QPixmap newpix(":/icons/new.png");
-        QPixmap savepix(":/icons/connect.png");
-        QPixmap compilepix(":/icons/download.png");
+        QPixmap openpix(":/icons/icons/open.png");
+        QPixmap newpix(":/icons/icons/new.png");
+        QPixmap savepix(":/icons/icons/connect.png");
+        QPixmap compilepix(":/icons/icons/download.png");
         toolBar->addAction(QIcon(newpix),"New");
         toolBar->addAction(QIcon(openpix),"Open");
         toolBar->addAction(QIcon(savepix),"Save");
