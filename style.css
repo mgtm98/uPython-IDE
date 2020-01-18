@@ -1,0 +1,120 @@
+MainWindow{
+     background-color : #252526;
+     color : #D4D4D4;
+}
+
+Editor{
+    background-color : #1E1E1E;
+    color : #D4D4D4;
+    font: 13px "Consolas";
+    border: none;
+    padding-top : 15px;
+}
+
+LineNumberArea{
+    color : #9C9D9E;
+    font-size: 13px;
+}
+
+QSplitter::handle {
+    width : 0px;
+}
+
+QScrollBar{
+    background : #252526;
+}
+
+QScrollBar::handle{
+    background : #515151;
+    border : 0px;
+}
+
+QScrollBar::add-line:vertical {
+    background : #252526;
+}
+
+QScrollBar::sub-line:vertical {
+    background : #252526;
+}
+
+DirectoryViewer {
+    show-decoration-selected: 1;
+    background-color : #252526;
+    color : #ffffff;
+    border : none;
+}
+
+DirectoryViewer::item{
+    height : 25px;
+}
+
+DirectoryViewer::item:hover {
+    background: #2A2D2E;
+}
+
+DirectoryViewer::item:selected {
+    background: #37373D;
+}
+
+DirectoryViewer::branch:has-siblings:!adjoins-item {
+    border-image: url(:/icons/vline.png) 0;
+}
+
+DirectoryViewer::branch:has-siblings:adjoins-item {
+    border-image: url(:/icons/branch-more.png) 0;
+}
+
+DirectoryViewer::branch:!has-children:!has-siblings:adjoins-item {
+    border-image: url(:/icons/branch-end.png) 0;
+}
+
+DirectoryViewer::branch:has-children:!has-siblings:closed,
+DirectoryViewer::branch:closed:has-children:has-siblings {
+        border-image: none;
+        image: url(:/icons/branch-closed.png);
+}
+
+DirectoryViewer::branch:open:has-children:!has-siblings,
+DirectoryViewer::branch:open:has-children:has-siblings  {
+        border-image: none;
+        image: url(:/icons/branch-open.png);
+}
+
+QTabWidget{
+    border : none;
+    border-color : #1E1E1E;
+}
+
+QTabBar::tab{
+    width : 100px;
+    color : #D4D4D4;
+    background : #252526;
+    border: none;
+    padding : 10;
+}
+
+QTabBar::tab:selected{
+    color : #D4D4D4;
+    background : #1E1E1E;
+    width : 100px;
+    padding : 10;
+}
+
+QTabBar::close-button{ border: none; image: url(:/icons/close.png);}
+QTabBar::close-button:hover{ border: none; image: url(:/icons/close_red.png);}
+
+QToolBar{
+    padding : 0px;
+    background : #333333;
+    border: none;
+}
+
+QToolButton {
+    padding : 10px;
+    background : #333333;
+}
+
+QToolButton:hover {
+    padding : 10px;
+    background : #333333;
+}

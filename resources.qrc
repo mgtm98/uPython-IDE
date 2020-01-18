@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>style.css</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>branch-closed.png</file>
+        <file>branch-end.png</file>
+        <file>branch-more.png</file>
+        <file>branch-open.png</file>
+        <file>vline.png</file>
+        <file>close.png</file>
+        <file>close_red.png</file>
+        <file>connect.png</file>
+        <file>download.png</file>
+        <file>new.png</file>
+        <file>open.png</file>
+    </qresource>
+</RCC>
