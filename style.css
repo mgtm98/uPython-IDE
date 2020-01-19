@@ -6,9 +6,17 @@ MainWindow{
 Editor{
     background-color : #1E1E1E;
     color : #D4D4D4;
-    font: 13px "Consolas";
+    font: 14px "monospace";
     border: none;
     padding-top : 15px;
+}
+
+QPlainTextEdit#Terminal{
+    background-color : #252526;
+    font-weight : bold;
+    font: 13px "monospace";
+    padding-top : 15px;
+    color : #ffffff;
 }
 
 LineNumberArea{
@@ -57,27 +65,27 @@ DirectoryViewer::item:selected {
 }
 
 DirectoryViewer::branch:has-siblings:!adjoins-item {
-    border-image: url(:/icons/vline.png) 0;
+    border-image: url(:/icons/icons/vline.png) 0;
 }
 
 DirectoryViewer::branch:has-siblings:adjoins-item {
-    border-image: url(:/icons/branch-more.png) 0;
+    border-image: url(:/icons/icons/branch-more.png) 0;
 }
 
 DirectoryViewer::branch:!has-children:!has-siblings:adjoins-item {
-    border-image: url(:/icons/branch-end.png) 0;
+    border-image: url(:/icons/icons/branch-end.png) 0;
 }
 
 DirectoryViewer::branch:has-children:!has-siblings:closed,
 DirectoryViewer::branch:closed:has-children:has-siblings {
         border-image: none;
-        image: url(:/icons/branch-closed.png);
+        image: url(:/icons/icons/branch-closed.png);
 }
 
 DirectoryViewer::branch:open:has-children:!has-siblings,
 DirectoryViewer::branch:open:has-children:has-siblings  {
         border-image: none;
-        image: url(:/icons/branch-open.png);
+        image: url(:/icons/icons/branch-open.png);
 }
 
 QTabWidget{
@@ -86,7 +94,6 @@ QTabWidget{
 }
 
 QTabBar::tab{
-    width : 100px;
     color : #D4D4D4;
     background : #252526;
     border: none;
@@ -96,12 +103,11 @@ QTabBar::tab{
 QTabBar::tab:selected{
     color : #D4D4D4;
     background : #1E1E1E;
-    width : 100px;
     padding : 10;
 }
 
-QTabBar::close-button{ border: none; image: url(:/icons/close.png);}
-QTabBar::close-button:hover{ border: none; image: url(:/icons/close_red.png);}
+QTabBar::close-button{ border: none; image: url(:/icons/icons/close.png);}
+QTabBar::close-button:hover{ border: none; image: url(:/icons/icons/close_red.png);}
 
 QToolBar{
     padding : 0px;
@@ -110,8 +116,10 @@ QToolBar{
 }
 
 QToolButton {
-    padding : 10px;
+    padding : 5px;
     background : #333333;
+    width : 30;
+    height : 30;
 }
 
 QToolButton:hover {

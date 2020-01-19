@@ -16,23 +16,23 @@ static const FormatMap STYLES = {
     { "comment", PythonHighlighter::format("#6A9955") },
     { "self", PythonHighlighter::format("#569CD6", "italic") },
     { "numbers", PythonHighlighter::format("#B5CEA8") },
-    { "importing", PythonHighlighter::format("#C586C0") }
+    { "keyword2", PythonHighlighter::format("#C586C0") }
 
 };
 
 // Python keywords
 static const QStringList keywords = {
-    "and", "assert", "break", "class", "continue", "def",
-    "del", "elif", "else", "except", "exec", "finally",
-    "for", "from", "global", "if", "import", "in",
+    "and", "assert", "class", "continue", "def",
+    "del", "exec", "finally",
+    "global",
     "is", "lambda", "not", "or", "pass", "print",
-    "raise", "return", "try", "while", "yield",
+    "raise", "return", "yield",
     "None", "True", "False"
 };
 
 // importing keywords
-static const QStringList importing = {
-    "import", "from", "as"
+static const QStringList keyword2 = {
+    "import", "from", "as", "if", "elif", "else", "for" , "while", "try", "except", "pass"
 };
 
 // Python operators
@@ -79,10 +79,10 @@ void PythonHighlighter::initialize(){
         _pythonHighlightingRules += HighlightingRule(pattern, 0, STYLES["keyword"]);
     }
 
-    for(const QString &importKeyword : importing)
+    for(const QString &importKeyword : keyword2)
     {
         QString pattern = QString("\\b%1\\b").arg(importKeyword);
-        _pythonHighlightingRules += HighlightingRule(pattern, 0, STYLES["importing"]);
+        _pythonHighlightingRules += HighlightingRule(pattern, 0, STYLES["keyword2"]);
     }
 
     for(const QString &pattern: braces)

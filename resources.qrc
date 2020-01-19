@@ -14,5 +14,9 @@
         <file>icons/branch-more.png</file>
         <file>icons/branch-end.png</file>
         <file>icons/branch-closed.png</file>
+        <file>icons/reset.png</file>
+        <file>icons/disconnect.png</file>
+        <file>icons/file.png</file>
+        <file>icons/python.png</file>
     </qresource>
 </RCC>

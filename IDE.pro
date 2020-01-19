@@ -20,13 +20,15 @@ SOURCES += \
     mainwindow.cpp \
     editor.cpp \
     directoryviewer.cpp \
-    pythonhighlighter.cpp
+    pythonhighlighter.cpp \
+    highlighter.cpp
 
 HEADERS += \
     mainwindow.h \
     editor.h \
     directoryviewer.h \
-    pythonhighlighter.h
+    pythonhighlighter.h \
+    highlighter.h
 
 RESOURCES += \
     resources.qrc

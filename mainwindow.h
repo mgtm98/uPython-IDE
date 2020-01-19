@@ -12,6 +12,7 @@
 
 
 #include "directoryviewer.h"
+#include "highlighter.h"
 #include "editor.h"
 
 class MainWindow : public QMainWindow{
@@ -27,6 +28,8 @@ private:
     QTabWidget *editorTabWidget = new QTabWidget();
     Editor *mainEditor = new Editor();
     QToolBar *toolBar;
+    Highlighter *h ;
+    QPlainTextEdit *term = new QPlainTextEdit();
 
 };
 #endif // MAINWINDOW_H

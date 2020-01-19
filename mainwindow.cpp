@@ -11,11 +11,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
 
     centerWidget->addWidget(dirViewer);
     centerWidget->addWidget(editorTabWidget);
+    centerWidget->addWidget(term);
 
+    editorTabWidget->addTab(mainEditor,"Ros.py");
+    editorTabWidget->addTab(new Editor,"TcpServer.py");
+    editorTabWidget->addTab(new Editor,"walkArround.py");
 
-    editorTabWidget->addTab(mainEditor,"Python");
-    editorTabWidget->addTab(new Editor,"Python");
-    editorTabWidget->addTab(new Editor,"Python");
+    editorTabWidget->setTabIcon(0, QPixmap(":/icons/icons/python.png"));
+    editorTabWidget->setTabIcon(1, QPixmap(":/icons/icons/python.png"));
+    editorTabWidget->setTabIcon(2, QPixmap(":/icons/icons/python.png"));
+
+    term->setObjectName("Terminal");
+    term->setMaximumWidth(350);
+
+    h = new Highlighter(term->document());
 
     editorTabWidget->setTabsClosable(true);
 
@@ -26,15 +35,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
 
     toolBar = new QToolBar();
     toolBar->setOrientation(Qt::Vertical);
-        QPixmap openpix(":/icons/icons/open.png");
-        QPixmap newpix(":/icons/icons/new.png");
-        QPixmap savepix(":/icons/icons/connect.png");
-        QPixmap compilepix(":/icons/icons/download.png");
-        toolBar->addAction(QIcon(newpix),"New");
-        toolBar->addAction(QIcon(openpix),"Open");
-        toolBar->addAction(QIcon(savepix),"Save");
-        toolBar->addAction(QIcon(compilepix),"Compile");
-
+    QPixmap newpix(":/icons/icons/new.png");
+    QPixmap openpix(":/icons/icons/open.png");
+    QPixmap connectpix(":/icons/icons/connect.png");
+    QPixmap disconnectpix(":/icons/icons/disconnect.png");
+    QPixmap resetpix(":/icons/icons/reset.png");
+    QPixmap downloadpix(":/icons/icons/download.png");
+    QPixmap filepix(":/icons/icons/file.png");
+    toolBar->addAction(QIcon(newpix),"New");
+    toolBar->addAction(QIcon(openpix),"Open");
+    toolBar->addAction(QIcon(connectpix),"Connect");
+    toolBar->addAction(QIcon(disconnectpix),"Disconnect");
+    toolBar->addAction(QIcon(resetpix),"Soft Reset");
+    toolBar->addAction(QIcon(downloadpix),"Download");
+    toolBar->addAction(QIcon(filepix),"uPython File System");
     toolBar->setMovable(false);
 
     addToolBar(Qt::LeftToolBarArea, toolBar);
