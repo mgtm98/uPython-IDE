@@ -8,7 +8,7 @@ Editor{
     color : #D4D4D4;
     font: 14px "monospace";
     border: none;
-    padding-top : 15px;
+    padding-top : 5px;
 }
 
 QPlainTextEdit#Terminal{
@@ -46,6 +46,7 @@ QScrollBar::sub-line:vertical {
 }
 
 DirectoryViewer {
+    padding-left : 5px;
     show-decoration-selected: 1;
     background-color : #252526;
     color : #ffffff;
@@ -60,7 +61,15 @@ DirectoryViewer::item:hover {
     background: #2A2D2E;
 }
 
+DirectoryViewer::branch:hover {
+    background: #2A2D2E;
+}
+
 DirectoryViewer::item:selected {
+    background: #37373D;
+}
+
+DirectoryViewer::branch:selected{
     background: #37373D;
 }
 
@@ -91,6 +100,7 @@ DirectoryViewer::branch:open:has-children:has-siblings  {
 QTabWidget{
     border : none;
     border-color : #1E1E1E;
+    background-color : #252526;
 }
 
 QTabBar::tab{

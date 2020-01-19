@@ -7,10 +7,12 @@
 #include <QWidget>
 #include <QSplitter>
 #include <QToolBar>
-
 #include <QPlainTextEdit>
-
-
+#include <QFile>
+#include <QDebug>
+#include <QTreeWidgetItem>
+#include <QMap>
+#include <QDir>
 #include "directoryviewer.h"
 #include "highlighter.h"
 #include "editor.h"
@@ -22,14 +24,29 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void onDirViewDoubleClick(QModelIndex);
+    void closeTab(int);
+
 private:
-    QSplitter *centerWidget = new QSplitter(Qt::Horizontal);
-    DirectoryViewer *dirViewer = new DirectoryViewer();
-    QTabWidget *editorTabWidget = new QTabWidget();
-    Editor *mainEditor = new Editor();
+
+    typedef struct EditorFile{
+        QString filePath;
+        Editor *editor;
+    } EditorFile;
+
+    QSplitter *centerWidget;
+    DirectoryViewer *dirViewer;
+    QTabWidget *editorTabWidget;
+    Editor *mainEditor;
     QToolBar *toolBar;
-    Highlighter *h ;
-    QPlainTextEdit *term = new QPlainTextEdit();
+    QPlainTextEdit *term;
+    Highlighter *h;
+    QMap <QString, EditorFile*> *activeFiles;
+    QString workspacePath;
+
+    void initToolBar();
+
 
 };
 #endif // MAINWINDOW_H

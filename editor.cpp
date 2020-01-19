@@ -147,5 +147,4 @@ int Editor::getInstNumber(int inst){
 }
 
 Editor::~Editor(){
-    qDebug() << "Removed an editor";
 }

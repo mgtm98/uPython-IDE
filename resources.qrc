@@ -18,5 +18,8 @@
         <file>icons/disconnect.png</file>
         <file>icons/file.png</file>
         <file>icons/python.png</file>
+        <file>icons/txt.png</file>
+        <file>icons/save.png</file>
+        <file>icons/connected.png</file>
     </qresource>
 </RCC>
