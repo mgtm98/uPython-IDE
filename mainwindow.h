@@ -17,6 +17,11 @@
 #include <QLineEdit>
 #include <QFileDialog>
 #include <QInputDialog>
+#include <QMenuBar>
+#include <QWidgetAction>
+#include <QComboBox>
+#include <QSpinBox>
+#include <QMovie>
 #include "directoryviewer.h"
 #include "highlighter.h"
 #include "pythonHighlighter.h"
@@ -102,9 +107,18 @@ private:
     QLineEdit *newFolderName;
     QPushButton *newFolderNamebtn;
 
+    QComboBox *ports;
+
+    QMovie *loadingGif;
+    QLabel *loadingStatus;
+
+    bool connected = false;
+
     void initToolBar();
     void initFileSysPanel();
     void addFileToEditior(QString);
+    void showLaodingGif();
+    void deleteLoadingGif();
 
 };
 #endif // MAINWINDOW_H

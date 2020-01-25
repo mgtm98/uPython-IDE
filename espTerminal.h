@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QSyntaxHighlighter>
 #include <QScrollBar>
+#include <QSerialPortInfo>
 
 class uPyTerminal : public QPlainTextEdit{
     Q_OBJECT
@@ -21,6 +22,8 @@ public:
 //    void readFile(QString,QString);
     void createFolder(QString,QString);
     void deleteFolder(QString,QString);
+
+    static QStringList getPorts();
 
     static const char CTRLD = '\u0004';
     static const char CTRLB = '\u0002';

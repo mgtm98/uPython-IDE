@@ -28,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     refresh = new QPushButton();
     deleteFolder = new QPushButton();
     fileSysLayout2 = new QVBoxLayout();
+    ports = new QComboBox();
+    loadingGif = new QMovie(":/icons/icons/loading.gif");
 
     QFile configFile(QString(CONFIG_PATH)+"config.txt");
     configFile.open(QIODevice::ReadWrite);
@@ -73,12 +75,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     initToolBar();
     initFileSysPanel();
 
-
     QStatusBar *status = statusBar();
     status->setMaximumHeight(20);
     status->addPermanentWidget(connectedStatus);
     status->addPermanentWidget(portNameStatus);
     status->addPermanentWidget(baudRateStatus);
+    connectedStatus->setText("Disconnected !!");
 
     connect(dirViewer,&DirectoryViewer::doubleClicked,this,&MainWindow::onDirViewDoubleClick);
     connect(editorTabWidget, &QTabWidget::tabCloseRequested, this, &MainWindow::closeTab);
@@ -94,6 +96,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     connect(openBtnAction, &QAction::triggered, this, &MainWindow::onOpenFolderClicked);
     connect(newBtnAction, &QAction::triggered, this, &MainWindow::onNewFileClicked);
 }
+
 
 void MainWindow::onNewFileClicked(){
     QFileSystemModel dir;
@@ -192,6 +195,8 @@ void MainWindow::onNewFolderNamebtnClicked(){
 void MainWindow::onFileSysRefreshClicked(){
     fileSysrefresh = true;
     term->getDir(upyDir.mid(0,upyDir.length()-1));
+    qDebug() << upyDir.mid(0,upyDir.length()-1);
+    showLaodingGif();
 }
 
 void MainWindow::onuFileSysRead(QStringList dataList){
@@ -209,6 +214,8 @@ void MainWindow::onuFileSysRead(QStringList dataList){
     }
     fileSysrefresh = false;
     upyFileSys->setCurrentPath(upyDir);
+    delete loadingStatus;
+    loadingGif->stop();
 }
 
 void MainWindow::onEspFileSysClicked(QListWidgetItem *item){
@@ -224,6 +231,7 @@ void MainWindow::onEspFileSysClicked(QListWidgetItem *item){
         upyDirLastClick = item->text();
         term->getDir(upyDir+upyDirLastClick);
     }
+    deleteLoadingGif();
 }
 
 void MainWindow::initToolBar(){
@@ -238,12 +246,18 @@ void MainWindow::initToolBar(){
     newBtnAction = toolBar->addAction(QIcon(newpix),"New");
     openBtnAction = toolBar->addAction(QIcon(openpix),"Open");
     saveBtnAction = toolBar->addAction(QIcon(savepix),"Save");
+//    toolBar->addWidget(ports);
     connectBtnAction = toolBar->addAction(QIcon(connectpix),"Connect");
     disconnectBtnAction = toolBar->addAction(QIcon(disconnectpix),"Disconnect");
     sresetBtnAction = toolBar->addAction(QIcon(resetpix),"Soft Reset");
     downloadBtnAction = toolBar->addAction(QIcon(downloadpix),"Download");
+
     toolBar->setMovable(false);
     addToolBar(Qt::LeftToolBarArea, toolBar);
+
+//    ports->addItems(uPyTerminal::getPorts());
+//    ports->setObjectName("portsCombobox");
+////    ports->setMaximumWidth(40);
 
 }
 
@@ -297,7 +311,14 @@ void MainWindow::closeTab(int index){
 }
 
 void MainWindow::onConnectPressed(){
-    term->open("/dev/ttyUSB0",115200);
+    bool ok;
+    if(!connected){
+        QString portName = QInputDialog::getItem(this, tr("Select Serial Port"),
+                                              tr("uPython Serial Port : "), uPyTerminal::getPorts(), 0, false, &ok);
+        if(ok){
+            term->open("/dev/"+portName,115200);
+        }
+    }
 }
 
 void MainWindow::onDisconnectPressed(){
@@ -307,6 +328,7 @@ void MainWindow::onDisconnectPressed(){
     term->moveCursor(QTextCursor::End);
     term->setCursorWidth(0);
     upyFileSys->setEnabled(false);
+    connected = false;
 }
 
 void MainWindow::onConnected(){
@@ -318,6 +340,7 @@ void MainWindow::onConnected(){
     baudRateStatus->setText("baudRate : 115200");
     term->setCursorWidth(7);
     upyFileSys->setEnabled(true);
+    connected = true;
 }
 
 void MainWindow::onSoftResetPressed(){
@@ -331,7 +354,24 @@ void MainWindow::onDownloadPressed(){
         QString code = activeFiles->value(activeEditor)->editor->document()->toPlainText();
         term->upload(code,activeEditor,upyDir.mid(0,upyDir.length()-1));
     }
+    showLaodingGif();
     // TODO downloading / reset esp32 alot / fix bug in reading from serial
+}
+
+void MainWindow::showLaodingGif(){
+//    if(loadingGif->state() != QMovie::Running){
+//        loadingStatus = new QLabel();
+//        loadingStatus->setMovie(loadingGif);
+//        loadingGif->start();
+//        statusBar()->addWidget(loadingStatus);
+//    }
+}
+
+void MainWindow::deleteLoadingGif(){
+//    if(loadingStatus != nullptr){
+//        delete loadingStatus;
+//        loadingGif->stop();
+//    }
 }
 
 MainWindow::~MainWindow(){

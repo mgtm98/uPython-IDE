@@ -15,6 +15,14 @@ uPyTerminal::uPyTerminal(QSyntaxHighlighter *highlighter, QWidget *parent) : QPl
 uPyTerminal::uPyTerminal(QWidget *parent):uPyTerminal(nullptr,parent){
 }
 
+QStringList uPyTerminal::getPorts(){
+    QStringList ports;
+    for(QSerialPortInfo i : QSerialPortInfo::availablePorts()){
+        ports.append(i.portName());
+    }
+    return ports;
+}
+
 // bugs in it ..... refactor it in a cleaner code or use regex / coloring escape / empty line then up key then down key
 void uPyTerminal::readData(){
     QString data = port->readAll();

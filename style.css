@@ -267,4 +267,24 @@ QPushButton#fileSysSaveBtn:hover{
     background: #2A2D2E;
 }
 
+QComboBox#portsCombobox{
+/*    background : red;*/
+    border : none;
+    width : 25px;
+}
 
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: bottom right;
+    width: 15px;
+    border-left-width: 1px;
+    border-left-color: darkgray;
+    border-left-style: solid;  just a single line
+    border-top-right-radius: 3px;  same radius as the QComboBox
+    border-bottom-right-radius: 3px;
+}
+
+QComboBox:on {  shift the text when the popup opens
+    padding-top: 3px;
+    padding-left: 4px;
+}
