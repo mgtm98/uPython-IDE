@@ -23,3 +23,8 @@ void DirectoryViewer::setHeader(QString title){
 QFileSystemModel* DirectoryViewer::getFileSystemModel(){
     return fmodel;
 }
+
+void DirectoryViewer::setRoot(QString path){
+    fmodel->setRootPath(path);
+    this->setRootIndex(fmodel->index(path));
+}

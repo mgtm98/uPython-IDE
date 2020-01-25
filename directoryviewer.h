@@ -12,6 +12,7 @@ public:
     DirectoryViewer(QString path, QWidget *parent = nullptr);
     void setHeader(QString);
     QFileSystemModel* getFileSystemModel();
+    void setRoot(QString);
 
 private:
     QFileSystemModel *fmodel;

@@ -2,6 +2,7 @@
 #define CONFIG_PATH ""
 
 #include <QDebug>
+#include <QDirModel>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     centerWidget = new QSplitter(Qt::Horizontal);
@@ -89,6 +90,47 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     connect(term, &uPyTerminal::opFinished, this, &MainWindow::onTerminalOpFinished);
     connect(upyFileSys,&upyFileExplorer::itemDoubleClicked , this, &MainWindow::onEspFileSysClicked);
     connect(term, &uPyTerminal::upyPathsReady, this, &MainWindow::onuFileSysRead);
+    connect(saveBtnAction, &QAction::triggered, this, &MainWindow::onSaveBtnClicked);
+    connect(openBtnAction, &QAction::triggered, this, &MainWindow::onOpenFolderClicked);
+    connect(newBtnAction, &QAction::triggered, this, &MainWindow::onNewFileClicked);
+}
+
+void MainWindow::onNewFileClicked(){
+    QFileSystemModel dir;
+    QString path = dir.filePath(dirViewer->currentIndex());
+    if(path.contains(".")){
+        path = path.mid(0,path.lastIndexOf("/"));
+    }else if(!path.compare("")) {
+        path = workspacePath;
+    }
+    bool ok;
+    QString newFileName = QInputDialog::getText(this, tr("Create new File"),tr("File name :"), QLineEdit::Normal,"newFile", &ok);
+    if(ok){
+        QFile f (path+"/"+newFileName);
+        f.open(QIODevice::WriteOnly);
+        f.close();
+    }
+    addFileToEditior(path+"/"+newFileName);
+}
+
+void MainWindow::onOpenFolderClicked(){
+    QString path = QFileDialog::getExistingDirectory(this,tr("Open Workspace"), workspacePath);
+    if(path.compare(""))
+        dirViewer->setRoot(workspacePath);
+}
+
+void MainWindow::onSaveBtnClicked(){
+    if(editorTabWidget->currentIndex() > -1){
+        QString activeFile = editorTabWidget->tabText(editorTabWidget->currentIndex());
+        QString path = activeFiles->value(activeFile)->filePath;
+        Editor *e = activeFiles->value(activeFile)->editor;
+        QFile f(path);
+        if(f.open(QIODevice::WriteOnly)){
+            f.write(e->toPlainText().toUtf8());
+            f.close();
+            statusBar()->showMessage("File Saved",2000);
+        }
+    }
 }
 
 void MainWindow::initFileSysPanel(){
@@ -207,6 +249,10 @@ void MainWindow::initToolBar(){
 
 void MainWindow::onDirViewDoubleClick(QModelIndex modelIndex){
     QString path = dirViewer->getFileSystemModel()->filePath(modelIndex);
+    addFileToEditior(path);
+}
+
+void MainWindow::addFileToEditior(QString path){
     QString name = path.mid(path.lastIndexOf("/")+1, path.size());
     QString type = path.mid(path.lastIndexOf(".")+1, path.size()-path.lastIndexOf("."));
     if(!path.compare(type)) type = "";

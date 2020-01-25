@@ -15,6 +15,8 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QLineEdit>
+#include <QFileDialog>
+#include <QInputDialog>
 #include "directoryviewer.h"
 #include "highlighter.h"
 #include "pythonHighlighter.h"
@@ -45,6 +47,9 @@ private slots:
     void onFileSyDeleteFolderClicked();
     void onNewFolderNamebtnClicked();
     void onTerminalOpFinished();
+    void onSaveBtnClicked();
+    void onOpenFolderClicked();
+    void onNewFileClicked();
 
 private:
 
@@ -99,6 +104,7 @@ private:
 
     void initToolBar();
     void initFileSysPanel();
+    void addFileToEditior(QString);
 
 };
 #endif // MAINWINDOW_H
