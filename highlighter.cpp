@@ -1,9 +1,8 @@
 #include "highlighter.h"
 Highlighter::Highlighter(QTextDocument *parent):QSyntaxHighlighter(parent){
-    keywordFormat.setForeground(Qt::blue);
-    keywordFormat.setFontWeight(QFont::Bold);
+    keywordFormat.setForeground(QColor("#20A98B"));
     const QString keywordPatterns[] = {
-            QStringLiteral("\\b/^(?=.*>)[^<]+$/\\b"),
+           ">>>"
     };
 
     HighlightingRule rule;

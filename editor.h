@@ -5,18 +5,20 @@
 #include <QPainter>
 #include <QTextBlock>
 #include <QtDebug>
-#include "pythonhighlighter.h"
+#include <QSyntaxHighlighter>
 
 class LineNumberArea;
 
 class Editor : public QPlainTextEdit{
     Q_OBJECT
+
 public:
     struct lineHiighLight{
         int line;
         QColor color;
     };
     Editor(QWidget *parent = nullptr);
+    Editor(QSyntaxHighlighter*,QWidget*);
     void lineNumberPaintEvent (QPaintEvent *e);
     int lineNumberWidth();
     void highlightLine(int);
@@ -38,10 +40,11 @@ private slots:
 
 private:
     LineNumberArea *numArea;
-    PythonHighlighter *pyHighlightrt;
+    QSyntaxHighlighter *pyHighlightrt;
     QMap<int,int> *instTable;
     QColor color;
     int maxInstructionNumbers;
+    void initFont();
 };
 
 class LineNumberArea : public QWidget{

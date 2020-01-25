@@ -6,6 +6,7 @@
 #include <QDebug>
 
 class Highlighter : public QSyntaxHighlighter{
+
 public:
     Highlighter(QTextDocument *parent = nullptr);
 
@@ -18,10 +19,8 @@ private:
         QTextCharFormat format;
     };
     QVector<HighlightingRule> highlightingRules;
-
     QRegularExpression commentStartExpression;
     QRegularExpression commentEndExpression;
-
     QTextCharFormat keywordFormat;
     QTextCharFormat regFormat;
     QTextCharFormat singleLineCommentFormat;

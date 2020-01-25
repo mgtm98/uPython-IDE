@@ -1,32 +1,33 @@
 #include "editor.h"
 
-Editor::Editor(QWidget *parent):QPlainTextEdit(parent){
+Editor::Editor(QWidget *parent):Editor(nullptr, parent){
+}
+
+Editor::Editor(QSyntaxHighlighter *highlighter, QWidget *parent):QPlainTextEdit(parent){
     numArea = new LineNumberArea(this);
-
-    setStyleSheet("line-height : 100px");
-
-    numArea->setStyleSheet("background-color : #000000");
     this->setBackgroundVisible(true);
-//    highlight = new Highlighter(this->document());
-    pyHighlightrt = new PythonHighlighter(this->document());
+    if(highlighter != nullptr) highlighter->setDocument(document());
     instTable = new QMap<int,int>;
+
+    setViewportMargins(lineNumberWidth(),0,0,0);
+    setLineWrapMode(QPlainTextEdit::NoWrap);
+    initFont();
+
     connect(this, &Editor::blockCountChanged, this, &Editor::updateNumAreaWidth);
     connect(this, &Editor::updateRequest, this, &Editor::updateNumArea);
     connect(this, &Editor::cursorPositionChanged, this, &Editor::highlightCurrentLine);
-    setViewportMargins(lineNumberWidth(),0,0,0);
+}
 
+void Editor::initFont(){
+    QFont font;
+    font.setFamily("Courier");
+    font.setStyleHint(QFont::Monospace);
+    font.setFixedPitch(true);
+    font.setPointSize(10);
+    setFont(font);
 
-//    QTextDocument* doc = this->document();
-//    QTextBlock currentBlock = doc->firstBlock();
-
-//    while (currentBlock.isValid()) {
-//        qDebug() << "here";
-//        QTextCursor cursor(currentBlock);
-//        QTextBlockFormat blockFormat = currentBlock.blockFormat();
-//        blockFormat.setLineHeight(200, QTextBlockFormat::ProportionalHeight);
-//        cursor.setBlockFormat(blockFormat);
-//        currentBlock = currentBlock.next();
-//    }
+    QFontMetrics metrics(font);
+    setTabStopWidth(4 * metrics.width(' '));   // Needs to be changed TODO
 }
 
 int Editor::lineNumberWidth(){

@@ -16,10 +16,15 @@
         <file>icons/branch-closed.png</file>
         <file>icons/reset.png</file>
         <file>icons/disconnect.png</file>
-        <file>icons/file.png</file>
         <file>icons/python.png</file>
         <file>icons/txt.png</file>
         <file>icons/save.png</file>
         <file>icons/connected.png</file>
+        <file>icons/home.png</file>
+        <file>icons/back.png</file>
+        <file>icons/folder.png</file>
+        <file>icons/refresh.png</file>
+        <file>icons/bin.png</file>
+        <file>icons/newFolder.png</file>
     </qresource>
 </RCC>

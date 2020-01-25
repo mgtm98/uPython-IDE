@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,19 +16,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    espTerminal.cpp \
+    htmlhighlighter.cpp \
     main.cpp \
     mainwindow.cpp \
     editor.cpp \
     directoryviewer.cpp \
     pythonhighlighter.cpp \
-    highlighter.cpp
+    highlighter.cpp \
+    upyfilesys.cpp
 
 HEADERS += \
+    espTerminal.h \
+    htmlHighlighter.h \
     mainwindow.h \
     editor.h \
     directoryviewer.h \
-    pythonhighlighter.h \
-    highlighter.h
+    highlighter.h \
+    pythonHighlighter.h \
+    upyfilesys.h
 
 RESOURCES += \
     resources.qrc
