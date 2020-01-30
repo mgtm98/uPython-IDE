@@ -22,6 +22,7 @@ public:
 //    void readFile(QString,QString);
     void createFolder(QString,QString);
     void deleteFolder(QString,QString);
+    void run(QString);
 
     static QStringList getPorts();
 

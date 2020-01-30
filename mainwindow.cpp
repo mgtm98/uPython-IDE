@@ -31,14 +31,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     ports = new QComboBox();
     loadingGif = new QMovie(":/icons/icons/loading.gif");
 
-    QFile configFile(QString(CONFIG_PATH)+"config.txt");
-    configFile.open(QIODevice::ReadWrite);
-    workspacePath = configFile.readLine();
-    configFile.close();
-    if(workspacePath.endsWith("\n")){
-        workspacePath.chop(1);
-    }
-    dirViewer = new DirectoryViewer(workspacePath,this);
+    dirViewer = new DirectoryViewer("/",this);
+    dirViewer->setMaximumWidth(170);
 
     setCentralWidget(centerWidget);
     centerWidget->setContentsMargins(0,0,0,0);
@@ -69,8 +63,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
 
     editorTabWidget->setTabsClosable(true);
 
-    dirViewer->setMaximumWidth(170);
-
     showMaximized();
     initToolBar();
     initFileSysPanel();
@@ -82,10 +74,28 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     status->addPermanentWidget(baudRateStatus);
     connectedStatus->setText("Disconnected !!");
 
+    QFile configFile(QString(CONFIG_PATH)+"config.txt");
+    if(configFile.exists()){
+        configFile.open(QIODevice::ReadWrite);
+        workspacePath = configFile.readLine();
+        configFile.close();
+    }else{
+        QString path = QFileDialog::getExistingDirectory(this,tr("Select Workspace"), "/");
+        configFile.open(QIODevice::ReadWrite);
+        configFile.write(path.toUtf8());
+        configFile.close();
+        workspacePath = path;
+    }
+    if(workspacePath.endsWith("\n")){
+        workspacePath.chop(1);
+    }
+    dirViewer->setRoot(workspacePath);
+
     connect(dirViewer,&DirectoryViewer::doubleClicked,this,&MainWindow::onDirViewDoubleClick);
     connect(editorTabWidget, &QTabWidget::tabCloseRequested, this, &MainWindow::closeTab);
     connect(connectBtnAction, &QAction::triggered, this, &MainWindow::onConnectPressed);
     connect(disconnectBtnAction, &QAction::triggered, this, &MainWindow::onDisconnectPressed);
+    connect(runBtnAction, &QAction::triggered, this, &MainWindow::onRunPressed);
     connect(sresetBtnAction, &QAction::triggered, this, &MainWindow::onSoftResetPressed);
     connect(downloadBtnAction, &QAction::triggered, this, &MainWindow::onDownloadPressed);
     connect(term, &uPyTerminal::connected, this, &MainWindow::onConnected);
@@ -95,6 +105,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     connect(saveBtnAction, &QAction::triggered, this, &MainWindow::onSaveBtnClicked);
     connect(openBtnAction, &QAction::triggered, this, &MainWindow::onOpenFolderClicked);
     connect(newBtnAction, &QAction::triggered, this, &MainWindow::onNewFileClicked);
+}
+
+void MainWindow::onRunPressed(){
+    int index = editorTabWidget->currentIndex();
+    if(index > -1){
+        QString activeEditor = editorTabWidget->tabText(index);
+        QString code = activeFiles->value(activeEditor)->editor->document()->toPlainText();
+        term->run(code);
+    }
 }
 
 
@@ -241,24 +260,20 @@ void MainWindow::initToolBar(){
     QPixmap savepix(":/icons/icons/save.png");
     QPixmap connectpix(":/icons/icons/connect.png");
     QPixmap disconnectpix(":/icons/icons/disconnect.png");
+    QPixmap runpix(":/icons/icons/run.png");
     QPixmap resetpix(":/icons/icons/reset.png");
     QPixmap downloadpix(":/icons/icons/download.png");
     newBtnAction = toolBar->addAction(QIcon(newpix),"New");
     openBtnAction = toolBar->addAction(QIcon(openpix),"Open");
     saveBtnAction = toolBar->addAction(QIcon(savepix),"Save");
-//    toolBar->addWidget(ports);
     connectBtnAction = toolBar->addAction(QIcon(connectpix),"Connect");
     disconnectBtnAction = toolBar->addAction(QIcon(disconnectpix),"Disconnect");
+    runBtnAction = toolBar->addAction(QIcon(runpix), "Run");
     sresetBtnAction = toolBar->addAction(QIcon(resetpix),"Soft Reset");
     downloadBtnAction = toolBar->addAction(QIcon(downloadpix),"Download");
 
     toolBar->setMovable(false);
     addToolBar(Qt::LeftToolBarArea, toolBar);
-
-//    ports->addItems(uPyTerminal::getPorts());
-//    ports->setObjectName("portsCombobox");
-////    ports->setMaximumWidth(40);
-
 }
 
 void MainWindow::onDirViewDoubleClick(QModelIndex modelIndex){

@@ -15,6 +15,12 @@ uPyTerminal::uPyTerminal(QSyntaxHighlighter *highlighter, QWidget *parent) : QPl
 uPyTerminal::uPyTerminal(QWidget *parent):uPyTerminal(nullptr,parent){
 }
 
+void uPyTerminal::run(QString code){
+    send(uPyTerminal::CTRLE);
+    send(code);
+    send(uPyTerminal::CTRLD);
+}
+
 QStringList uPyTerminal::getPorts(){
     QStringList ports;
     for(QSerialPortInfo i : QSerialPortInfo::availablePorts()){

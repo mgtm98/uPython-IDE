@@ -42,6 +42,7 @@ private slots:
     void closeTab(int);
     void onConnectPressed();
     void onDisconnectPressed();
+    void onRunPressed();
     void onSoftResetPressed();
     void onDownloadPressed();
     void onConnected();
@@ -80,6 +81,7 @@ private:
     QAction *saveBtnAction;
     QAction *connectBtnAction;
     QAction *disconnectBtnAction;
+    QAction *runBtnAction;
     QAction *sresetBtnAction;
     QAction *downloadBtnAction;
 
